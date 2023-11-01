@@ -1,3 +1,4 @@
+/* 侧边栏底部 */
 footer span{
     color: rgb(34,187,255);
 }
@@ -7,21 +8,25 @@ footer{
 @font-face {
     font-family: "iconfont";
     /* Project id 4113856 */
-    src: url('//at.alicdn.com/t/c/font_4113856_7k3jgx7erl4.woff2?t=1698659017034') format('woff2'),
-        url('//at.alicdn.com/t/c/font_4113856_7k3jgx7erl4.woff?t=1698659017034') format('woff'),
-        url('//at.alicdn.com/t/c/font_4113856_7k3jgx7erl4.ttf?t=1698659017034') format('truetype');
+    src: url('//at.alicdn.com/t/c/font_4113856_dyf3q23sk2o.woff2?t=1698736015126') format('woff2'),
+        url('//at.alicdn.com/t/c/font_4113856_dyf3q23sk2o.woff?t=1698736015126') format('woff'),
+        url('//at.alicdn.com/t/c/font_4113856_dyf3q23sk2o.ttf?t=1698736015126') format('truetype');
 }
 
 .iconfont {
     font-family: "iconfont" !important;
+    /* font-size: 16px; */
     font-style: normal;
-    font-size: 20px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    vertical-align:bottom;
 }
 
-.icon-weixin1:before {
-    content: "\e870";
-    color: rgb(11,150,130);
+.icon-fenxiangweixin:before {
+    content: "\e669";
+}
+.icon-github:before {
+    content: "\e63a";
+}
+/* 头像 */
+#logo img{ border-radius: 10%; -webkit-border-radius: 10%; -moz-border-radius: 10%; -ms-border-radius: 10%; -o-border-radius: 10%; box-sizing: border-box; width: 100%; transform: scale(0.7); -webkit-transform: scale(0.7); -moz-transform: scale(0.7); -ms-transform: scale(0.7); -o-transform: scale(0.7);
 }
