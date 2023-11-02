@@ -53,12 +53,12 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
         padding: 6px 12px;
         max-width: 500px;
         font-size: 14px;
-        background: linear-gradient(90deg, #6699CC 10.79%, #336699 87.08%);
+        background: rgb(68, 70, 84)
         color: rgb(255,255,255);
         box-shadow: 0px 0.3px 0.9px rgba(0, 0, 0, 0.12), 0px 1.6px 3.6px rgba(0, 0, 0, 0.16);
     }
     .chatpdfAsk .chatpdfContent {
-        background: linear-gradient(90deg, #2870EA 10.79%, #1B4AEF 87.08%);
+        background: linear-gradient(90deg, #5b5b8a 10.79%, rgb(52, 53, 65) 87.08%);
         color: #fff;
     }
     .chatpdfArea {
@@ -67,34 +67,42 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
         max-width: 1000px;
         margin: 0 auto;
         width: 100%;
+        position: relative;
     }
     .chatpdfArea textarea {
         flex: 1;
-        border-color: #d9d9d9;
-        resize: none;
+        /* resize: vertical; */
         outline: none;
-        padding: 0px 5px;
-        height: 35px;
-        line-height: 30px;
-        color: #404040;
-        border-radius: 10px 0px 0px 10px;
+        border-color:rgb(58, 58, 60);
+        padding: 5px;
+        min-height: 40px;
+        height: auto;
+        color: #eee;
+        border-radius: 8px;
+        box-sizing: border-box;
         transition: all 0.3s, height 0s;
+        background: rgb(58, 58, 60);
+        max-height: 200px;
     }
+    .chatpdfArea textarea::-webkit-scrollbar {display:none}
+
     .chatpdfArea textarea:hover {
-        border-color: #4096ff;
+        border-color: rgb(28, 29, 30);
     }
     .chatpdfArea button {
+        position: absolute;
         height: 35px;
         color: #fff;
-        background: linear-gradient(90deg, #2870EA 10.79%, #1B4AEF 87.08%);
-        box-shadow: 0 2px 0 rgba(5, 145, 255, 0.1);
+        background: rgb(58, 58, 60);
         border: none;
         padding: 0 20px;
-        border-radius: 0px 8px 8px 0px;
+        border-radius: 8px;
         cursor: pointer;
+        right: 20px;
+        bottom: 8px;
     }
     .chatpdfArea button:hover {
-        background-color: #388aff;
+        /* background-color: #388aff; */
     }
     .chatpdf .fileTitle {
         background-color: #1677ff;
@@ -140,7 +148,18 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
     </div>
 </div>
 
-<div id="paginator"></div></div><div id="post-footer"></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="To Top" style="opacity: 0; display: none;">∧ </a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="Change Theme"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="/img/avatar.jpg" alt="Logo"></a><h1 id="Dr"><a href="/">LinXiao</a></h1><div id="description"><p>我能new出N个对象，却唯独在等你！</p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/KevinLin8"><i class="fab fa-github" alt="GitHub"></i></a><a class="social" href="mailto:xiao13022087579@163.com"><i class="fa fa-envelope" alt="E-Mail"></i></a></div></div><div id="aside-block"><section id="total"><a id="total-archives" href="/archives"><span class="total-title">Archives Total:</span><span class="total-number">2</span></a><div id="total-tags"><span class="total-title">Tags:</span><span class="total-number">2</span></div><div id="total-categories"><span class="total-title">Categories:</span><span class="total-number">2</span></div></section></div><footer><nobr><span class="icp-title">ICP</span><a class="icp-content" target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">懒得备</a></nobr><br><nobr>Published with <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> Theme <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> by <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/search.js"></script><script src="/js/custom.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/lib/encrypt/hbe.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {new Valine({
+
+
+<script>
+
+    var textarea = document.querySelector('textarea');
+    textarea.addEventListener('input', (e) => {
+        if(e.target.value == ''){
+            textarea.style.height = 40 + 'px'
+        }
+        textarea.style.height = e.target.scrollHeight + 'px';
+    });
+</script><div id="paginator"></div></div><div id="post-footer"></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="To Top" style="opacity: 0; display: none;">∧ </a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="Change Theme"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="/img/avatar.jpg" alt="Logo"></a><h1 id="Dr"><a href="/">LinXiao</a></h1><div id="description"><p>我能new出N个对象，却唯独在等你！</p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/KevinLin8"><i class="fab fa-github" alt="GitHub"></i></a><a class="social" href="mailto:xiao13022087579@163.com"><i class="fa fa-envelope" alt="E-Mail"></i></a></div></div><div id="aside-block"><section id="total"><a id="total-archives" href="/archives"><span class="total-title">Archives Total:</span><span class="total-number">2</span></a><div id="total-tags"><span class="total-title">Tags:</span><span class="total-number">2</span></div><div id="total-categories"><span class="total-title">Categories:</span><span class="total-number">2</span></div></section></div><footer><nobr><span class="icp-title">ICP</span><a class="icp-content" target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">懒得备</a></nobr><br><nobr>Published with <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> Theme <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> by <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/search.js"></script><script src="/js/custom.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/lib/encrypt/hbe.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {new Valine({
  el: '#valine'
  , appId: 'DyRRFHYUNvMKO79w2AnV84dl-gzGzoHsz'
  , appKey: 'WxQJZbP7LvCUKsY9vqSxbE5l' , placeholder: 'This comment is sent by Penguin Logistics.'
