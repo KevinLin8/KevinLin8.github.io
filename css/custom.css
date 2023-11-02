@@ -30,3 +30,17 @@ footer{
 /* 头像 */
 #logo img{ border-radius: 10%; -webkit-border-radius: 10%; -moz-border-radius: 10%; -ms-border-radius: 10%; -o-border-radius: 10%; box-sizing: border-box; width: 100%; transform: scale(0.7); -webkit-transform: scale(0.7); -moz-transform: scale(0.7); -ms-transform: scale(0.7); -o-transform: scale(0.7);
 }
+#post-bg {
+    display: flex;
+    /* 设置为flex布局 */
+    flex-direction: column;
+    /* 设置为纵向排列 */
+}
+
+#post-content {
+    flex: 1;
+    /* 使用flex属性将子盒子的高度设置为自动填充 */
+    display: flex;
+        /* 设置为flex布局 */
+        flex-direction: column;
+}
