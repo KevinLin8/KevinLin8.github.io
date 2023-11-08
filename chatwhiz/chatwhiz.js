@@ -1,19 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
-var chatpdfLine = document.getElementById('chatpdfLine');
-function autoResizeTextarea(element) {
-  element.style.height = 'auto';
-  element.style.height = element.scrollHeight + 'px';
-}
-// 获取 textarea 元素
-var textarea = document.getElementById('textArea');
-// 监听输入事件，当有输入时自动调整高度
-textarea.addEventListener('input', function() {
-  autoResizeTextarea(this);
-});
-// 页面加载完成后初始化 textarea 的高度
-window.addEventListener('load', function() {
-  autoResizeTextarea(textarea);
-});
+    var chatpdfLine = document.getElementById('chatpdfLine');
+    function autoResizeTextarea (element) {
+        element.style.height = 'auto';
+        element.style.height = element.scrollHeight + 'px';
+    }
+    // 获取 textarea 元素
+    var textarea = document.getElementById('textArea');
+    // 监听输入事件，当有输入时自动调整高度
+    textarea.addEventListener('input', function () {
+        autoResizeTextarea(this);
+    });
+    // 页面加载完成后初始化 textarea 的高度
+    window.addEventListener('load', function () {
+        autoResizeTextarea(textarea);
+    });
 
 
     // chatwhiz
@@ -42,29 +42,29 @@ window.addEventListener('load', function() {
     }
 
 
-// start
-async function calculateHmacSHA256(key, message) {
-const encoder = new TextEncoder();
-let base64Signature;
-await crypto.subtle.importKey(
-  'raw',
-  encoder.encode(key),
-  { name: 'HMAC', hash: { name: 'SHA-256' } },
-  false,
-  ['sign']
-)
-.then(key => {
-  return crypto.subtle.sign('HMAC', key, encoder.encode(message));
-})
-.then(signature => {
-  base64Signature = btoa(String.fromCharCode(...new Uint8Array(signature)));
+    // start
+    async function calculateHmacSHA256 (key, message) {
+        const encoder = new TextEncoder();
+        let base64Signature;
+        await crypto.subtle.importKey(
+            'raw',
+            encoder.encode(key),
+            { name: 'HMAC', hash: { name: 'SHA-256' } },
+            false,
+            ['sign']
+        )
+            .then(key => {
+                return crypto.subtle.sign('HMAC', key, encoder.encode(message));
+            })
+            .then(signature => {
+                base64Signature = btoa(String.fromCharCode(...new Uint8Array(signature)));
 
-})
-.catch(error => {
-  console.error(error);
-});
-return base64Signature
-}
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        return base64Signature
+    }
 
 
     // end
@@ -149,7 +149,7 @@ return base64Signature
             let jsonData = JSON.parse(resultData)
             total_res += jsonData.payload.choices.text[0].content
 
-            if(jsonData.header.status == 0){
+            if (jsonData.header.status == 0) {
                 let chatBox = document.createElement('div')
                 let textBox = document.createElement('div')
                 let img = document.createElement('img')
@@ -163,7 +163,7 @@ return base64Signature
             }
             var lastChild = chatpdfLine.lastElementChild;
             lastChild.children[1].textContent = total_res
-            
+
             // 提问失败
             if (jsonData.header.code !== 0) {
                 alert(`提问失败: ${jsonData.header.code}:${jsonData.header.message}`)
@@ -184,7 +184,7 @@ return base64Signature
     let bigModel = new TTSRecorder()
 
     // ======================开始调用=============================
-    send.onclick = function () {
+    function requestOnlineConnection () {
         let chatBox = document.createElement('div')
         let textBox = document.createElement('div')
         let img = document.createElement('img')
@@ -193,7 +193,7 @@ return base64Signature
         textBox.textContent = textarea.value
         chatBox.appendChild(textBox)
         chatBox.appendChild(img)
-        chatBox.classList.add('chatpdfRow','chatpdfAsk')
+        chatBox.classList.add('chatpdfRow', 'chatpdfAsk')
         chatpdfLine.appendChild(chatBox)
         params.payload.message.text.push({
             "role": "user",
@@ -201,9 +201,17 @@ return base64Signature
         })
         console.log(params.payload.message.text);
         bigModel.start()
+
     }
 
-
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            requestOnlineConnection()
+        }
+    });
+    send.addEventListener('click', function (event) {
+        requestOnlineConnection()
+    });
 
 
 });
