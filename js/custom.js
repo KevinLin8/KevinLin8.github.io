@@ -38,3 +38,4 @@ function updateDom(){
     }
 }
 setInterval(updateDom,1000)
+

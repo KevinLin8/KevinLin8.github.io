@@ -16,8 +16,23 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
   --dark-background: url('/img/bg.jpg');
   --light-background: url('/img/bk.jpg');
   --theme-encrypt-confirm: '确认'
-}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li><li class="navItem"><a class="navBlock" href="/chatwhiz/"><span class="navItemTitle">Chatwhiz</span></a></li><li class="navItem"><a class="navBlock" href="/about/"><span class="navItemTitle">About</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>chatwhiz</h1></div><hr><div id="post-content"><html>
+}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li><li class="navItem"><a class="navBlock" href="/chatwhiz/"><span class="navItemTitle">Chatwhiz</span></a></li><li class="navItem"><a class="navBlock" href="/about/"><span class="navItemTitle">About</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>chatwhiz</h1></div><hr><div id="post-content">
+<html>
+<head>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+  <!-- 标题、样式表等 -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
+    .prompt{
+        font-size: 14px;
+        color: rgb(34, 187, 255);
+    }
+    :root {
+	--textcolor: #fff;
+    --textbackground:rgba(22, 23, 24)
+    }
     * {
         margin: 0;
         padding: 0;
@@ -62,47 +77,49 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
         top: 0;
     }
     .chatpdfContent {
-        display: inline-block;
+        margin: 0;
+        box-sizing: border-box; 
+        white-space: pre-wrap;
         line-height: 1.5;
-        border-radius: 8px;
-        padding: 0 12px;
-        max-width: 800px;
-        font-size: 14px;
-        background: rgb(68, 70, 84)
-        color: rgb(255,255,255);
+        border-radius: 5px;
+        max-width: 700px;
+        background: var(--textbackground);
+        color: var(--textcolor);
         box-shadow: 0px 0.3px 0.9px rgba(0, 0, 0, 0.12), 0px 1.6px 3.6px rgba(0, 0, 0, 0.16);
+        padding: 0 5px;
+    } 
+    .assistant .chatpdfContent{
+        margin-left: 10px;
     }
     .chatpdfAsk .chatpdfContent {
-        background: rgb(68, 70, 84)
-        color: rgb(255,255,255);
+        margin-right: 10px;
     }
     .chatpdfArea {
         display: flex;
         padding: 5px 10px;
         max-width: 1000px;
         margin: 0 auto;
-        width: 100%;
+        width: 100%;    
         position: relative;
     }
     .chatpdfArea textarea {
         flex: 1;
-        /* resize: vertical; */
         outline: none;
         border-color:rgb(58, 58, 60);
         padding: 5px;
-        min-height: 40px;
+        min-height: 50px;
         height: auto;
-        color: #eee;
         border-radius: 8px;
         box-sizing: border-box;
         transition: all 0.3s, height 0s;
         background: rgb(58, 58, 60);
         max-height: 200px;
+        color: var(--textcolor);
     }
     .chatpdfArea textarea::-webkit-scrollbar {
         display:none
     }
-.chatpdfArea textarea:hover {
+    .chatpdfArea textarea:hover {
         border-color: rgb(28, 29, 30);
     }
     .chatpdfArea button {
@@ -118,16 +135,7 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
         bottom: 8px;
     }
     .chatpdfArea button:hover {
-        /* background-color: #388aff; */
-    }
-    .chatpdf .fileTitle {
-        background-color: #1677ff;
-        color: #fff;
-        border-radius: 8px;
-        padding: 10px;
-        margin: 10px;
-        font-size: 14px;
-        cursor: pointer;
+        background-color: rgb(163, 163, 179);
     }
     @media (max-width: 768px) {
         .pannel {
@@ -135,21 +143,16 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
         }
     }
 </style>
+</head>
+<body>
+<p class="prompt"><进入Chatwhiz请刷新页面></p>
 <div class="chatpdf">
-    <div class="chatpdfBox">
+    <div class="chatpdfBox" id='chatpdfBox'>
         <div class="chatpdfLine" id='chatpdfLine'>
-            <!-- <div class="chatpdfRow">
-                <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
+            <div class="chatpdfRow assistant">
+                <img src="/img/ai.jpg" alt="">
+                <div class="chatpdfContent">您好！我是知识库机器人，一个专门响应人类指令的大模型，有什么可以帮您？</div>
             </div>
-            <div class="chatpdfRow">
-                <div class="chatpdfContent">我服务于人类，致力于让生活更美好</div>
-            </div>
-            <div class="chatpdfRow">
-                <div class="chatpdfContent">我是知识库机器人，一个专门响应人类指令的大模型</div>
-            </div>
-            <div class="chatpdfRow chatpdfAsk">
-                <div class="chatpdfContent">自建私有数据知识库 · 与知识库AI聊天</div>
-            </div> -->
         </div>
         <div class="chatpdfArea">
             <textarea id='textArea'></textarea>
@@ -163,10 +166,10 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
         </div>
     </div>
 </div>
-<script src='./chatwhiz.js' type='module'></script>
+</body>
+<script src='./chatwhiz.js?v=1.0'></script>
 </html>
-
-<div id="paginator"></div></div><div id="post-footer"></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="/img/avatar.jpg" alt="Logo"></a><h1 id="Dr"><a href="/">LinXiao</a></h1><div id="description"><p>我能new出N个对象，却唯独在等你！</p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/KevinLin8"><i class="fab fa-github" alt="GitHub"></i></a><a class="social" href="mailto:xiao13022087579@163.com"><i class="fa fa-envelope" alt="E-Mail"></i></a></div></div><div id="aside-block"><section id="total"><a id="total-archives" href="/archives"><span class="total-title">文章 总数:</span><span class="total-number">2</span></a><div id="total-tags"><span class="total-title">标签:</span><span class="total-number">2</span></div><div id="total-categories"><span class="total-title">分类:</span><span class="total-number">2</span></div></section></div><footer><nobr><span class="icp-title">ICP</span><a class="icp-content" target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">懒得备</a></nobr><br><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> 使用主题 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> 主题作者 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/search.js"></script><script src="/js/custom.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/lib/encrypt/hbe.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {new Valine({
+<div id="paginator"></div></div><div id="post-footer"></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="/img/avatar.jpg" alt="Logo"></a><h1 id="Dr"><a href="/">LinXiao</a></h1><div id="description"><p>我能new出N个对象，却唯独在等你！</p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/KevinLin8"><i class="fab fa-github" alt="GitHub"></i></a><a class="social" href="mailto:xiao13022087579@163.com"><i class="fa fa-envelope" alt="E-Mail"></i></a></div></div><div id="aside-block"><section id="total"><a id="total-archives" href="/archives"><span class="total-title">文章 总数:</span><span class="total-number">3</span></a><div id="total-tags"><span class="total-title">标签:</span><span class="total-number">2</span></div><div id="total-categories"><span class="total-title">分类:</span><span class="total-number">3</span></div></section></div><footer><nobr><span class="icp-title">ICP</span><a class="icp-content" target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">懒得备</a></nobr><br><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> 使用主题 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> 主题作者 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/search.js"></script><script src="/js/custom.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/lib/encrypt/hbe.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {new Valine({
  el: '#valine'
  , appId: 'DyRRFHYUNvMKO79w2AnV84dl-gzGzoHsz'
  , appKey: 'WxQJZbP7LvCUKsY9vqSxbE5l' , placeholder: '此条评论委托企鹅物流发送'

@@ -72,8 +72,7 @@ async function getWebsocketUrl () {
         var algorithm = 'hmac-sha256'
         var headers = 'host date request-line'
         var signatureOrigin = `host: ${host}\ndate: ${date}\nGET /v1.1/chat HTTP/1.1`
-        var signatureSha = await calculateHmacSHA256(apiSecret, signatureOrigin)
-        var signature = signatureSha;
+        var signature = await calculateHmacSHA256(apiSecret, signatureOrigin)
         var authorizationOrigin = `api_key="${apiKey}", algorithm="${algorithm}", headers="${headers}", signature="${signature}"`
         var authorization = btoa(authorizationOrigin)
         url = `${url}?authorization=${authorization}&date=${date}&host=${host}`
@@ -136,14 +135,14 @@ class TTSRecorder {
         total_res += jsonData.payload.choices.text[0].content
         if (jsonData.header.status == 0) {
             let chatBox = document.createElement('div')
-            let textBox = document.createElement('div')
+            let textBox = document.createElement('pre')
             let img = document.createElement('img')
             img.src = '/img/ai.jpg'
             textBox.classList.add('chatpdfContent')
             textBox.textContent = total_res
             chatBox.appendChild(img)
             chatBox.appendChild(textBox)
-            chatBox.classList.add('chatpdfRow')
+            chatBox.classList.add('chatpdfRow','assistant')
             chatpdfLine.appendChild(chatBox)
         }
         var lastChild = chatpdfLine.lastElementChild;
@@ -182,13 +181,21 @@ function requestOnlineConnection () {
         "content": textarea.value
     })
     bigModel.start()
+    textarea.value = ''
+    textarea.style.height = 'auto';
 }
-// document.addEventListener('keydown', function (event) {
-//     if (event.key === 'Enter') {
-//         requestOnlineConnection()
-//     }
-// });
 send.addEventListener('click', function (event) {
     requestOnlineConnection()
 });
-
+// 页面刷新恢复聊天数据
+let elementAsString = sessionStorage.getItem("chat_message");
+if (chatpdfLine.children.length == '1' && elementAsString) {
+    chatpdfLine.innerHTML = JSON.parse(elementAsString).element
+}
+window.addEventListener('beforeunload', function(event) {
+if(chatpdfLine.children.length){
+sessionStorage.setItem('chat_message',JSON.stringify({element:chatpdfLine.innerHTML}))
+}
+  event.preventDefault();
+  event.returnValue = '';  // 为了兼容旧版本的浏览器
+});
