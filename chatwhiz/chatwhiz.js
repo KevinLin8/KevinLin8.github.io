@@ -38,29 +38,29 @@ var params = {
         }
     }
 }
-// start
-async function calculateHmacSHA256 (key, message) {
-    const encoder = new TextEncoder();
-    let base64Signature;
-    await crypto.subtle.importKey(
-        'raw',
-        encoder.encode(key),
-        { name: 'HMAC', hash: { name: 'SHA-256' } },
-        false,
-        ['sign']
-    )
-        .then(key => {
-            return crypto.subtle.sign('HMAC', key, encoder.encode(message));
-        })
-        .then(signature => {
-            base64Signature = btoa(String.fromCharCode(...new Uint8Array(signature)));
-        })
-        .catch(error => {
-            console.error(error);
-        });
-    return base64Signature
-}
-// end
+// 实现HmacSHA256加密签名
+// async function calculateHmacSHA256 (key, message) {
+//     const encoder = new TextEncoder();
+//     let base64Signature;
+//     await crypto.subtle.importKey(
+//         'raw',
+//         encoder.encode(key),
+//         { name: 'HMAC', hash: { name: 'SHA-256' } },
+//         false,
+//         ['sign']
+//     )
+//         .then(key => {
+//             return crypto.subtle.sign('HMAC', key, encoder.encode(message));
+//         })
+//         .then(signature => {
+//             base64Signature = btoa(String.fromCharCode(...new Uint8Array(signature)));
+//         })
+//         .catch(error => {
+//             console.error(error);
+//         });
+//     return base64Signature
+// }
+
 // 获取请求地址
 async function getWebsocketUrl () {
     return new Promise(async (resolve, reject) => {
@@ -72,7 +72,8 @@ async function getWebsocketUrl () {
         var algorithm = 'hmac-sha256'
         var headers = 'host date request-line'
         var signatureOrigin = `host: ${host}\ndate: ${date}\nGET /v1.1/chat HTTP/1.1`
-        var signature = await calculateHmacSHA256(apiSecret, signatureOrigin)
+        var signatureSha = CryptoJS.HmacSHA256(signatureOrigin, apiSecret);
+        var signature = CryptoJS.enc.Base64.stringify(signatureSha);
         var authorizationOrigin = `api_key="${apiKey}", algorithm="${algorithm}", headers="${headers}", signature="${signature}"`
         var authorization = btoa(authorizationOrigin)
         url = `${url}?authorization=${authorization}&date=${date}&host=${host}`
@@ -189,11 +190,11 @@ send.addEventListener('click', function (event) {
 });
 // 页面刷新恢复聊天数据
 let elementAsString = sessionStorage.getItem("chat_message");
-if (chatpdfLine.children.length == '1' && elementAsString) {
+if (chatpdfLine.children.length == 1 && elementAsString) {
     chatpdfLine.innerHTML = JSON.parse(elementAsString).element
 }
 window.addEventListener('beforeunload', function(event) {
-if(chatpdfLine.children.length){
+if(chatpdfLine.children.length > 1){
 sessionStorage.setItem('chat_message',JSON.stringify({element:chatpdfLine.innerHTML}))
 }
   event.preventDefault();
