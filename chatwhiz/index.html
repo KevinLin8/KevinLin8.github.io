@@ -26,10 +26,15 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/hmac-sha256.js"></script>
 <style>
     #post-bg{
+        display: flex;
+        flex-direction: column;
         height: calc(100vh - 10px);
         box-sizing: border-box;
     }
     #post-content{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
         overflow: hidden;
     }
     .prompt{
@@ -39,8 +44,8 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
         align-items: center;
     }
     :root {
-	--textcolor: #fff;
-    --textbackground:rgba(22, 23, 24)
+	--textcolor: rgb(201, 209, 217);
+    --textbackground:rgba(37, 37, 37)
     }
     * {
         margin: 0;
@@ -67,7 +72,7 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
     }
     .chatpdfLine::-webkit-scrollbar { width: 0 !important }
     .chatpdfRow {
-        margin: 20px 10px;
+        margin: 20px 0;
         display: flex;
     }
     .chatpdfRow img{
@@ -91,12 +96,12 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
         box-sizing: border-box; 
         white-space: pre-wrap;
         line-height: 1.5;
-        border-radius: 5px;
+        border-radius: 8px;
         max-width: 700px;
         background: var(--textbackground);
         color: var(--textcolor);
         box-shadow: 0px 0.3px 0.9px rgba(0, 0, 0, 0.12), 0px 1.6px 3.6px rgba(0, 0, 0, 0.16);
-        padding: 0 5px;
+        padding: 10px;
     } 
     .assistant .chatpdfContent{
         margin-left: 10px;
@@ -106,37 +111,34 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
     }
     .chatpdfArea {
         display: flex;
-        padding: 5px 10px;
-        max-width: 1000px;
+        padding: 10px;
+        width: 80%;
         margin: 0 auto;
-        width: 100%;    
         position: relative;
+        box-sizing: border-box;
     }
     .chatpdfArea textarea {
         flex: 1;
         outline: none;
-        border-color:rgb(58, 58, 60);
-        padding: 5px;
-        min-height: 50px;
-        height: auto;
+        border: none;
+        padding: 10px;
+        max-height: 250px;
         border-radius: 8px;
         box-sizing: border-box;
-        transition: all 0.3s, height 0s;
-        background: rgb(58, 58, 60);
-        max-height: 200px;
+        transition: all 0.3s, height 0.2s;
+        background: var(--textbackground);
         color: var(--textcolor);
+        font-size: 15px;
+        font-family: 'JetBrains Mono';
     }
     .chatpdfArea textarea::-webkit-scrollbar {
         display:none
     }
-    .chatpdfArea textarea:hover {
-        border-color: rgb(28, 29, 30);
-    }
     .chatpdfArea button {
         position: absolute;
         height: 35px;
-        color: #fff;
-        background: rgb(58, 58, 60);
+        color: var(--textcolor);
+        background:var(--textbackground);
         border: none;
         padding: 0 20px;
         border-radius: 8px;
@@ -144,8 +146,8 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
         right: 20px;
         bottom: 8px;
     }
-    .chatpdfArea button:hover {
-        background-color: rgb(163, 163, 179);
+    .chatpdfArea button .icon{
+        color: aqua;
     }
     @media (max-width: 768px) {
         .pannel {
@@ -185,7 +187,13 @@ const version = 'v3.1';
 const general = 'generalv3';
 var chatpdfLine = document.getElementById('chatpdfLine');
 var textarea = document.getElementById('textArea');
+var svg = document.querySelector('#send svg path');
 function autoResizeTextarea (element) {
+    if (element.value) {
+        svg.setAttribute('fill','rgb(255, 255, 255)')
+    }else{
+        svg.setAttribute('fill','rgb(133, 133, 134)')
+    }
     element.style.height = 'auto';
     element.style.height = element.scrollHeight + 'px';
 }
@@ -197,6 +205,12 @@ textarea.addEventListener('input', function () {
 // 页面加载完成后初始化 textarea 的高度
 window.addEventListener('load', function () {
     autoResizeTextarea(textarea);
+});
+textarea.addEventListener('keydown', function(event) {
+  if (event.keyCode === 13 && !event.shiftKey) {
+    event.preventDefault(); // 阻止默认的换行行为
+    requestOnlineConnection()
+  }
 });
 // chatwhiz
 const APPID = '0737ef21';
@@ -222,28 +236,6 @@ var params = {
         }
     }
 }
-// 实现HmacSHA256加密签名
-// async function calculateHmacSHA256 (key, message) {
-//     const encoder = new TextEncoder();
-//     let base64Signature;
-//     await crypto.subtle.importKey(
-//         'raw',
-//         encoder.encode(key),
-//         { name: 'HMAC', hash: { name: 'SHA-256' } },
-//         false,
-//         ['sign']
-//     )
-//         .then(key => {
-//             return crypto.subtle.sign('HMAC', key, encoder.encode(message));
-//         })
-//         .then(signature => {
-//             base64Signature = btoa(String.fromCharCode(...new Uint8Array(signature)));
-//         })
-//         .catch(error => {
-//             console.error(error);
-//         });
-//     return base64Signature
-// }
 
 // 获取请求地址
 async function getWebsocketUrl () {
@@ -350,6 +342,10 @@ class TTSRecorder {
 let bigModel = new TTSRecorder()
 // ======================开始调用=============================
 function requestOnlineConnection () {
+    if (!textarea.value) {
+        alert('请输入问题！')
+        return
+    }
     let chatBox = document.createElement('div')
     let dom = `
     <img src="/img/user.webp" alt="">
@@ -367,9 +363,7 @@ function requestOnlineConnection () {
     textarea.value = ''
     textarea.style.height = 'auto';
 }
-send.addEventListener('click', function (event) {
-    requestOnlineConnection()
-});
+send.addEventListener('click', requestOnlineConnection);
 // 页面刷新恢复聊天数据
 let elementAsString = sessionStorage.getItem("chat_message");
 if (chatpdfLine.children.length == 1 && elementAsString) {
