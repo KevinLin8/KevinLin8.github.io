@@ -17,368 +17,400 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
   --light-background: url('/img/bk.jpg');
   --theme-encrypt-confirm: 'confirm'
 }</style><meta name="generator" content="Hexo 6.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="Search" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li><li class="navItem"><a class="navBlock" href="/chatwhiz/"><span class="navItemTitle">Chatwhiz</span></a></li><li class="navItem"><a class="navBlock" href="/about/"><span class="navItemTitle">About</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>chatwhiz</h1></div><hr><div id="post-content"><html>
+
 <head>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-  <!-- 标题、样式表等 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/hmac-sha256.js"></script>
-<style>
-    #post-bg{
-        display: flex;
-        flex-direction: column;
-        height: calc(100vh - 10px);
-        box-sizing: border-box;
-    }
-    #post-content{
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-    }
-    .prompt{
-        font-size: 12px;
-        color:rgb(45, 143, 232);
-        display: flex;
-        align-items: center;
-    }
-    :root {
-	--textcolor: rgb(201, 209, 217);
-    --textbackground:rgba(37, 37, 37)
-    }
-    * {
-        margin: 0;
-        padding: 0;
-    }
-    .chatpdf {
-        display: flex;
-        height: 100%;
-        flex-direction: column;
-        flex: 1;
-    }
-    .chatpdfBox {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-    }
-    .chatpdfLine {
-        flex: 1;
-        width: 100%;
-        max-height: calc(100% - 10px - 40px);
-        margin: 0 auto;
-        overflow-y: auto;
-    }
-    .chatpdfLine::-webkit-scrollbar { width: 0 !important }
-    .chatpdfRow {
-        margin: 20px 0;
-        display: flex;
-    }
-    .chatpdfRow img{
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        border: none;
-    }
-    .chatpdfAsk {
-        justify-content: flex-end;
-        position: relative;
-        padding-right: 25px;
-    }
-    .chatpdfAsk img{
-        position: absolute;
-        right: 0;
-        top: 0;
-    }
-    .chatpdfContent {
-        margin: 0;
-        box-sizing: border-box; 
-        white-space: pre-wrap;
-        line-height: 1.5;
-        border-radius: 8px;
-        max-width: 700px;
-        background: var(--textbackground);
-        color: var(--textcolor);
-        box-shadow: 0px 0.3px 0.9px rgba(0, 0, 0, 0.12), 0px 1.6px 3.6px rgba(0, 0, 0, 0.16);
-        padding: 10px;
-    } 
-    .assistant .chatpdfContent{
-        margin-left: 10px;
-    }
-    .chatpdfAsk .chatpdfContent {
-        margin-right: 10px;
-    }
-    .chatpdfArea {
-        display: flex;
-        padding: 10px;
-        width: 80%;
-        margin: 0 auto;
-        position: relative;
-        box-sizing: border-box;
-    }
-    .chatpdfArea textarea {
-        flex: 1;
-        outline: none;
-        border: none;
-        padding: 10px;
-        max-height: 250px;
-        border-radius: 8px;
-        box-sizing: border-box;
-        transition: all 0.3s, height 0.2s;
-        background: var(--textbackground);
-        color: var(--textcolor);
-        font-size: 15px;
-        font-family: 'JetBrains Mono';
-    }
-    .chatpdfArea textarea::-webkit-scrollbar {
-        display:none
-    }
-    .chatpdfArea button {
-        position: absolute;
-        height: 35px;
-        color: var(--textcolor);
-        background:var(--textbackground);
-        border: none;
-        padding: 0 20px;
-        border-radius: 8px;
-        cursor: pointer;
-        right: 20px;
-        bottom: 8px;
-    }
-    .chatpdfArea button .icon{
-        color: aqua;
-    }
-    @media (max-width: 768px) {
-        .pannel {
-            display: none;
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- 标题、样式表等 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/hmac-sha256.js"></script>
+    <style>
+        #post-bg {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 10px);
+            box-sizing: border-box;
         }
-    }
-</style>
+
+        #post-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .prompt {
+            font-size: 12px;
+            color: rgb(45, 143, 232);
+            display: flex;
+            align-items: center;
+        }
+
+        :root {
+            --textcolor: rgb(201, 209, 217);
+            --textbackground: rgba(37, 37, 37)
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .chatpdf {
+            display: flex;
+            height: 100%;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .chatpdfBox {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .chatpdfLine {
+            flex: 1;
+            width: 100%;
+            max-height: calc(100% - 10px - 40px);
+            margin: 0 auto;
+            overflow-y: auto;
+        }
+
+        .chatpdfLine::-webkit-scrollbar {
+            width: 0 !important
+        }
+
+        .chatpdfRow {
+            margin: 20px 0;
+            display: flex;
+        }
+
+        .chatpdfRow img {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: none;
+        }
+
+        .chatpdfAsk {
+            justify-content: flex-end;
+            position: relative;
+            padding-right: 25px;
+        }
+
+        .chatpdfAsk img {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        .chatpdfContent {
+            margin: 0;
+            box-sizing: border-box;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            border-radius: 8px;
+            max-width: 700px;
+            background: var(--textbackground);
+            color: var(--textcolor);
+            box-shadow: 0px 0.3px 0.9px rgba(0, 0, 0, 0.12), 0px 1.6px 3.6px rgba(0, 0, 0, 0.16);
+            padding: 5px;
+        }
+
+        .assistant .chatpdfContent {
+            margin-left: 10px;
+        }
+
+        .chatpdfAsk .chatpdfContent {
+            margin-right: 10px;
+        }
+
+        .chatpdfArea {
+            display: flex;
+            padding: 10px;
+            width: 80%;
+            margin: 0 auto;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .chatpdfArea textarea {
+            flex: 1;
+            outline: none;
+            border: none;
+            padding: 10px;
+            max-height: 250px;
+            border-radius: 8px;
+            box-sizing: border-box;
+            transition: all 0.3s, height 0.2s;
+            background: var(--textbackground);
+            color: var(--textcolor);
+            font-size: 15px;
+            font-family: 'JetBrains Mono';
+        }
+
+        .chatpdfArea textarea::-webkit-scrollbar {
+            display: none
+        }
+
+        .chatpdfArea button {
+            position: absolute;
+            height: 35px;
+            color: var(--textcolor);
+            background: var(--textbackground);
+            border: none;
+            padding: 0 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            right: 20px;
+            bottom: 8px;
+        }
+
+        .chatpdfArea button .icon {
+            color: aqua;
+        }
+
+        @media (max-width: 768px) {
+            .pannel {
+                display: none;
+            }
+        }
+    </style>
 </head>
+
 <body>
-<p class="prompt">
-<svg t="1699602256613" style="margin-right: 3px;" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8685" width="15" height="15"><path d="M512 298.666667a42.666667 42.666667 0 0 1 42.666667 42.666666v170.666667a42.666667 42.666667 0 0 1-85.333334 0V341.333333a42.666667 42.666667 0 0 1 42.666667-42.666666z m-30.165333 311.168a42.624 42.624 0 1 1 60.330666 60.330666 42.624 42.624 0 1 1-60.330666-60.330666zM512 128c-212.096 0-384 171.904-384 384s171.904 384 384 384 384-171.904 384-384-171.904-384-384-384z m0-85.333333c259.2 0 469.333333 210.133333 469.333333 469.333333s-210.133333 469.333333-469.333333 469.333333S42.666667 771.2 42.666667 512 252.8 42.666667 512 42.666667z" fill="#2D8FE8" p-id="8686"></path></svg>
-进入Chatwhiz请按F5刷新页面 当前版本：v3.1</p>
-<div class="chatpdf">
-    <div class="chatpdfBox" id='chatpdfBox'>
-        <div class="chatpdfLine" id='chatpdfLine'>
-            <div class="chatpdfRow assistant">
-                <img src="/img/ai.jpg" alt="">
-                <pre class="chatpdfContent">您好！我是知识库机器人，一个专门响应人类指令的大模型，有什么可以帮您？</pre>
+    <p class="prompt">
+        <svg t="1699602256613" style="margin-right: 3px;" class="icon" viewBox="0 0 1024 1024" version="1.1"
+            xmlns="http://www.w3.org/2000/svg" p-id="8685" width="15" height="15">
+            <path
+                d="M512 298.666667a42.666667 42.666667 0 0 1 42.666667 42.666666v170.666667a42.666667 42.666667 0 0 1-85.333334 0V341.333333a42.666667 42.666667 0 0 1 42.666667-42.666666z m-30.165333 311.168a42.624 42.624 0 1 1 60.330666 60.330666 42.624 42.624 0 1 1-60.330666-60.330666zM512 128c-212.096 0-384 171.904-384 384s171.904 384 384 384 384-171.904 384-384-171.904-384-384-384z m0-85.333333c259.2 0 469.333333 210.133333 469.333333 469.333333s-210.133333 469.333333-469.333333 469.333333S42.666667 771.2 42.666667 512 252.8 42.666667 512 42.666667z"
+                fill="#2D8FE8" p-id="8686"></path>
+        </svg>
+        进入Chatwhiz请按F5刷新页面 当前版本：v3.1
+    </p>
+    <div class="chatpdf">
+        <div class="chatpdfBox" id='chatpdfBox'>
+            <div class="chatpdfLine" id='chatpdfLine'>
+                <div class="chatpdfRow assistant">
+                    <img src="/img/ai.jpg" alt="">
+                    <pre class="chatpdfContent">您好！我是知识库机器人，一个专门响应人类指令的大模型，有什么可以帮您？</pre>
+                </div>
+            </div>
+            <div class="chatpdfArea">
+                <textarea id='textArea'></textarea>
+                <button id='send'>
+                    <svg t="1682141916531" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="1271" width="16" height="16">
+                        <path d="M0 1024l106.496-474.112 588.8-36.864-588.8-39.936L0 0l1024 512z" fill="#ffffff"
+                            p-id="1272"></path>
+                    </svg>
+                </button>
             </div>
         </div>
-        <div class="chatpdfArea">
-            <textarea id='textArea'></textarea>
-            <button id='send'>
-                <svg t="1682141916531" class="icon" viewBox="0 0 1024 1024" version="1.1"
-                    xmlns="http://www.w3.org/2000/svg" p-id="1271" width="16" height="16">
-                    <path d="M0 1024l106.496-474.112 588.8-36.864-588.8-39.936L0 0l1024 512z" fill="#ffffff"
-                        p-id="1272"></path>
-                </svg>
-            </button>
-        </div>
     </div>
-</div>
 </body>
 <script>
-console.log(`-----------加载js脚本文件-----------${new Date()}`);
-const version = 'v3.1';
-const general = 'generalv3';
-var chatpdfLine = document.getElementById('chatpdfLine');
-var textarea = document.getElementById('textArea');
-var svg = document.querySelector('#send svg path');
-function autoResizeTextarea (element) {
-    if (element.value) {
-        svg.setAttribute('fill','rgb(255, 255, 255)')
-    }else{
-        svg.setAttribute('fill','rgb(133, 133, 134)')
-    }
-    element.style.height = 'auto';
-    element.style.height = element.scrollHeight + 'px';
-}
-// 获取 textarea 元素
-// 监听输入事件，当有输入时自动调整高度
-textarea.addEventListener('input', function () {
-    autoResizeTextarea(this);
-});
-// 页面加载完成后初始化 textarea 的高度
-window.addEventListener('load', function () {
-    autoResizeTextarea(textarea);
-});
-textarea.addEventListener('keydown', function(event) {
-  if (event.keyCode === 13 && !event.shiftKey) {
-    event.preventDefault(); // 阻止默认的换行行为
-    requestOnlineConnection()
-  }
-});
-// chatwhiz
-const APPID = '0737ef21';
-const API_SECRET = 'N2I0ZWViM2M3MDdlYTkyMTAzZTNhODE3';
-const API_KEY = '93cc1c69fec144cd075974bcac7a384c';
-var total_res = "";
-// 请求参数
-var params = {
-    "header": {
-        "app_id": APPID,
-        "uid": "linxiao"
-    },
-    "parameter": {
-        "chat": {
-            "domain": general,
-            "temperature": 0.5,
-            "max_tokens": 1024
-        }
-    },
-    "payload": {
-        "message": {
-            "text": []
-        }
-    }
-}
-
-// 获取请求地址
-async function getWebsocketUrl () {
-    return new Promise(async (resolve, reject) => {
-        var apiKey = API_KEY
-        var apiSecret = API_SECRET
-        var url = `wss://spark-api.xf-yun.com/${version}/chat`
-        var host = location.host
-        var date = new Date().toGMTString()
-        var algorithm = 'hmac-sha256'
-        var headers = 'host date request-line'
-        var signatureOrigin = `host: ${host}\ndate: ${date}\nGET /${version}/chat HTTP/1.1`
-        var signatureSha = CryptoJS.HmacSHA256(signatureOrigin, apiSecret);
-        var signature = CryptoJS.enc.Base64.stringify(signatureSha);
-        var authorizationOrigin = `api_key="${apiKey}", algorithm="${algorithm}", headers="${headers}", signature="${signature}"`
-        var authorization = btoa(authorizationOrigin)
-        url = `${url}?authorization=${authorization}&date=${date}&host=${host}`
-        resolve(url)
-    })
-}
-class TTSRecorder {
-    constructor({
-        appId = APPID
-    } = {}) {
-        this.appId = appId
-        this.status = 'init'
-    }
-    // 修改状态
-    setStatus (status) {
-        this.onWillStatusChange && this.onWillStatusChange(this.status, status)
-        this.status = status
-    }
-    // 连接websocket
-    connectWebSocket () {
-        this.setStatus('ttsing')
-        return getWebsocketUrl().then(url => {
-            let ttsWS
-            if ('WebSocket' in window) {
-                ttsWS = new WebSocket(url)
-            } else if ('MozWebSocket' in window) {
-                ttsWS = new MozWebSocket(url)
+    window.addEventListener('DOMContentLoaded', function () {
+        console.log(`-----------加载js脚本文件-----------${new Date()}`);
+        const version = 'v3.1';
+        const general = 'generalv3';
+        var chatpdfLine = document.getElementById('chatpdfLine');
+        var textarea = document.getElementById('textArea');
+        var svg = document.querySelector('#send svg path');
+        function autoResizeTextarea (element) {
+            if (element.value) {
+                svg.setAttribute('fill', 'rgb(255, 255, 255)')
             } else {
-                alert('浏览器不支持WebSocket')
-                return
+                svg.setAttribute('fill', 'rgb(133, 133, 134)')
             }
-            this.ttsWS = ttsWS
-            ttsWS.onopen = e => {
-                this.webSocketSend()
+            element.style.height = 'auto';
+            element.style.height = element.scrollHeight + 'px';
+        }
+        // 获取 textarea 元素
+        // 监听输入事件，当有输入时自动调整高度
+        textarea.addEventListener('input', function () {
+            autoResizeTextarea(this);
+        });
+        // 页面加载完成后初始化 textarea 的高度
+        window.addEventListener('load', function () {
+            autoResizeTextarea(textarea);
+        });
+        textarea.addEventListener('keydown', function (event) {
+            if (event.keyCode === 13 && !event.shiftKey) {
+                event.preventDefault(); // 阻止默认的换行行为
+                requestOnlineConnection()
             }
-            ttsWS.onmessage = e => {
-                this.result(e.data)
+        });
+        // chatwhiz
+        const APPID = '0737ef21';
+        const API_SECRET = 'N2I0ZWViM2M3MDdlYTkyMTAzZTNhODE3';
+        const API_KEY = '93cc1c69fec144cd075974bcac7a384c';
+        var total_res = "";
+        // 请求参数
+        var params = {
+            "header": {
+                "app_id": APPID,
+                "uid": "linxiao"
+            },
+            "parameter": {
+                "chat": {
+                    "domain": general,
+                    "temperature": 0.5,
+                    "max_tokens": 1024
+                }
+            },
+            "payload": {
+                "message": {
+                    "text": []
+                }
             }
-            ttsWS.onerror = e => {
-                clearTimeout(this.playTimeout)
-                this.setStatus('error')
-                alert('WebSocket报错，请f12查看详情')
-                console.error(`详情查看：${encodeURI(url.replace('wss:', 'https:'))}`)
+        }
+
+        // 获取请求地址
+        async function getWebsocketUrl () {
+            return new Promise(async (resolve, reject) => {
+                var apiKey = API_KEY
+                var apiSecret = API_SECRET
+                var url = `wss://spark-api.xf-yun.com/${version}/chat`
+                var host = location.host
+                var date = new Date().toGMTString()
+                var algorithm = 'hmac-sha256'
+                var headers = 'host date request-line'
+                var signatureOrigin = `host: ${host}\ndate: ${date}\nGET /${version}/chat HTTP/1.1`
+                var signatureSha = CryptoJS.HmacSHA256(signatureOrigin, apiSecret);
+                var signature = CryptoJS.enc.Base64.stringify(signatureSha);
+                var authorizationOrigin = `api_key="${apiKey}", algorithm="${algorithm}", headers="${headers}", signature="${signature}"`
+                var authorization = btoa(authorizationOrigin)
+                url = `${url}?authorization=${authorization}&date=${date}&host=${host}`
+                resolve(url)
+            })
+        }
+        class TTSRecorder {
+            constructor({
+                appId = APPID
+            } = {}) {
+                this.appId = appId
+                this.status = 'init'
             }
-            ttsWS.onclose = e => {
+            // 修改状态
+            setStatus (status) {
+                this.onWillStatusChange && this.onWillStatusChange(this.status, status)
+                this.status = status
             }
-        })
-    }
-    // websocket发送数据
-    webSocketSend () {
-        this.ttsWS.send(JSON.stringify(params))
-    }
-    start () {
-        total_res = ""; // 请空回答历史
-        this.connectWebSocket()
-    }
-    // websocket接收数据的处理
-    result (resultData) {
-        let jsonData = JSON.parse(resultData)
-        total_res += jsonData.payload.choices.text[0].content
-        if (jsonData.header.status == 0) {
-            let chatBox = document.createElement('div')
-            let dom = `
+            // 连接websocket
+            connectWebSocket () {
+                this.setStatus('ttsing')
+                return getWebsocketUrl().then(url => {
+                    let ttsWS
+                    if ('WebSocket' in window) {
+                        ttsWS = new WebSocket(url)
+                    } else if ('MozWebSocket' in window) {
+                        ttsWS = new MozWebSocket(url)
+                    } else {
+                        alert('浏览器不支持WebSocket')
+                        return
+                    }
+                    this.ttsWS = ttsWS
+                    ttsWS.onopen = e => {
+                        this.webSocketSend()
+                    }
+                    ttsWS.onmessage = e => {
+                        this.result(e.data)
+                    }
+                    ttsWS.onerror = e => {
+                        clearTimeout(this.playTimeout)
+                        this.setStatus('error')
+                        alert('WebSocket报错，请f12查看详情')
+                        console.error(`详情查看：${encodeURI(url.replace('wss:', 'https:'))}`)
+                    }
+                    ttsWS.onclose = e => {
+                    }
+                })
+            }
+            // websocket发送数据
+            webSocketSend () {
+                this.ttsWS.send(JSON.stringify(params))
+            }
+            start () {
+                total_res = ""; // 请空回答历史
+                this.connectWebSocket()
+            }
+            // websocket接收数据的处理
+            result (resultData) {
+                let jsonData = JSON.parse(resultData)
+                total_res += jsonData.payload.choices.text[0].content
+                if (jsonData.header.status == 0) {
+                    let chatBox = document.createElement('div')
+                    let dom = `
             <img src="/img/ai.jpg" alt="">
             <pre class="chatpdfContent">${total_res}</pre>
             `
-            chatBox.innerHTML = dom
-            chatBox.classList.add('chatpdfRow','assistant')
-            chatpdfLine.appendChild(chatBox)
+                    chatBox.innerHTML = dom
+                    chatBox.classList.add('chatpdfRow', 'assistant')
+                    chatpdfLine.appendChild(chatBox)
+                }
+                var lastChild = chatpdfLine.lastElementChild;
+                lastChild.children[1].textContent = total_res
+                chatpdfLine.scrollTop = chatpdfLine.scrollHeight;
+                // 提问失败
+                if (jsonData.header.code !== 0) {
+                    alert(`提问失败: ${jsonData.header.code}:${jsonData.header.message}`)
+                    console.error(`${jsonData.header.code}:${jsonData.header.message}`)
+                    return
+                }
+                if (jsonData.header.code === 0 && jsonData.header.status === 2) {
+                    params.payload.message.text.push({
+                        "role": "assistant",
+                        "content": total_res
+                    })
+                    this.ttsWS.close()
+                    this.setStatus("init")
+                }
+            }
         }
-        var lastChild = chatpdfLine.lastElementChild;
-        lastChild.children[1].textContent = total_res
-        chatpdfLine.scrollTop = chatpdfLine.scrollHeight;
-        // 提问失败
-        if (jsonData.header.code !== 0) {
-            alert(`提问失败: ${jsonData.header.code}:${jsonData.header.message}`)
-            console.error(`${jsonData.header.code}:${jsonData.header.message}`)
-            return
-        }
-        if (jsonData.header.code === 0 && jsonData.header.status === 2) {
-            params.payload.message.text.push({
-                "role": "assistant",
-                "content": total_res
-            })
-            this.ttsWS.close()
-            this.setStatus("init")
-        }
-    }
-}
-let bigModel = new TTSRecorder()
-// ======================开始调用=============================
-function requestOnlineConnection () {
-    if (!textarea.value) {
-        alert('请输入问题！')
-        return
-    }
-    let chatBox = document.createElement('div')
-    let dom = `
+        let bigModel = new TTSRecorder()
+        // ======================开始调用=============================
+        function requestOnlineConnection () {
+            if (!textarea.value) {
+                alert('请输入问题！')
+                return
+            }
+            let chatBox = document.createElement('div')
+            let dom = `
     <img src="/img/user.webp" alt="">
     <pre class="chatpdfContent">${textarea.value}</pre>
     `
-    chatBox.innerHTML = dom
-    chatBox.classList.add('chatpdfRow', 'chatpdfAsk')
-    chatpdfLine.appendChild(chatBox)
-    params.payload.message.text.push({
-        "role": "user",
-        "content": textarea.value
-    })
-    bigModel.start()
-    chatpdfLine.scrollTop = chatpdfLine.scrollHeight;
-    textarea.value = ''
-    textarea.style.height = 'auto';
-}
-send.addEventListener('click', requestOnlineConnection);
-// 页面刷新恢复聊天数据
-let elementAsString = sessionStorage.getItem("chat_message");
-if (chatpdfLine.children.length == 1 && elementAsString) {
-    chatpdfLine.innerHTML = JSON.parse(elementAsString).element
-}
-window.addEventListener('beforeunload', function(event) {
-if(chatpdfLine.children.length > 1){
-sessionStorage.setItem('chat_message',JSON.stringify({element:chatpdfLine.innerHTML}))
-}
-  event.preventDefault();
-  event.returnValue = '';  // 为了兼容旧版本的浏览器
-});
+            chatBox.innerHTML = dom
+            chatBox.classList.add('chatpdfRow', 'chatpdfAsk')
+            chatpdfLine.appendChild(chatBox)
+            params.payload.message.text.push({
+                "role": "user",
+                "content": textarea.value
+            })
+            bigModel.start()
+            chatpdfLine.scrollTop = chatpdfLine.scrollHeight;
+            textarea.value = ''
+            textarea.style.height = 'auto';
+        }
+        send.addEventListener('click', requestOnlineConnection);
+        // 页面刷新恢复聊天数据
+        let elementAsString = sessionStorage.getItem("chat_message");
+        if (chatpdfLine.children.length == 1 && elementAsString) {
+            chatpdfLine.innerHTML = JSON.parse(elementAsString).element
+        }
+        window.addEventListener('beforeunload', function (event) {
+            if (chatpdfLine.children.length > 1) {
+                sessionStorage.setItem('chat_message', JSON.stringify({ element: chatpdfLine.innerHTML }))
+            }
+            event.preventDefault();
+            event.returnValue = '';  // 为了兼容旧版本的浏览器
+        });
+    });
 </script>
-</html>
-<div id="paginator"></div></div><div id="post-footer"></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="To Top" style="opacity: 0; display: none;">∧ </a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="Change Theme"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="/img/avatar.jpg" alt="Logo"></a><h1 id="Dr"><a href="/">LinXiao</a></h1><div id="description"><p>我能new出N个对象，却唯独在等你！</p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/KevinLin8"><i class="fab fa-github" alt="GitHub"></i></a><a class="social" href="mailto:xiao13022087579@163.com"><i class="fa fa-envelope" alt="E-Mail"></i></a></div></div><div id="aside-block"><section id="total"><a id="total-archives" href="/archives"><span class="total-title">Archives Total:</span><span class="total-number">3</span></a><div id="total-tags"><span class="total-title">Tags:</span><span class="total-number">3</span></div><div id="total-categories"><span class="total-title">Categories:</span><span class="total-number">2</span></div></section></div><footer><nobr><span class="icp-title">ICP</span><a class="icp-content" target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">懒得备</a></nobr><br><nobr>Published with <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> Theme <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> by <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/search.js"></script><script src="/js/custom.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/lib/encrypt/hbe.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {new Valine({
+</html><div id="paginator"></div></div><div id="post-footer"></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="To Top" style="opacity: 0; display: none;">∧ </a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="Change Theme"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="/img/avatar.jpg" alt="Logo"></a><h1 id="Dr"><a href="/">LinXiao</a></h1><div id="description"><p>我能new出N个对象，却唯独在等你！</p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/KevinLin8"><i class="fab fa-github" alt="GitHub"></i></a><a class="social" href="mailto:xiao13022087579@163.com"><i class="fa fa-envelope" alt="E-Mail"></i></a></div></div><div id="aside-block"><section id="total"><a id="total-archives" href="/archives"><span class="total-title">Archives Total:</span><span class="total-number">3</span></a><div id="total-tags"><span class="total-title">Tags:</span><span class="total-number">3</span></div><div id="total-categories"><span class="total-title">Categories:</span><span class="total-number">2</span></div></section></div><footer><nobr><span class="icp-title">ICP</span><a class="icp-content" target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">懒得备</a></nobr><br><nobr>Published with <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> Theme <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> by <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/search.js"></script><script src="/js/custom.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/lib/encrypt/hbe.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {new Valine({
  el: '#valine'
  , appId: 'DyRRFHYUNvMKO79w2AnV84dl-gzGzoHsz'
  , appKey: 'WxQJZbP7LvCUKsY9vqSxbE5l' , placeholder: 'This comment is sent by Penguin Logistics.'
