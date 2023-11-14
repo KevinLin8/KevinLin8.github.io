@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="zh-CN" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Javascript设计模式 | 家有奇肥猫</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><script>var config = {"root":"/","search":{"preload":true,"activeHolder":"键入以继续","blurHolder":"数据检索","noResult":"无 $0 相关数据"},"code":{"codeInfo":"$0 - $1 行","copy":"复制"}}</script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script src="//unpkg.com/mermaid@10.5.0/dist/mermaid.min.js"></script><script>mermaid.initialize({startOnLoad: false});</script><link type="text/css" rel="stylesheet" href="/lib/encrypt/hbe.style.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="/css/custom.css"><script>if (window.localStorage.getItem('theme-mode') === 'light')
+ document.documentElement.setAttribute('theme-mode', 'light')
+if (window.localStorage.getItem('theme-mode') === 'dark')
+ document.documentElement.setAttribute('theme-mode', 'dark')</script><style>@font-face {
+ font-family: Bender;
+ src: local('Bender'), url("/font/Bender.ttf"), url("/font/Bender.otf");
+}
+@font-face {
+ font-family: BenderLight;
+ src: local('BenderLight'), url("/font/BenderLight.ttf");
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><style>:root {
+  --dark-background: url('/img/bg.jpg');
+  --light-background: url('/img/bk.jpg');
+  --theme-encrypt-confirm: '确认'
+}</style><meta name="generator" content="Hexo 6.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li><li class="navItem"><a class="navBlock" href="/chatwhiz/"><span class="navItemTitle">Chatwhiz</span></a></li><li class="navItem"><a class="navBlock" href="/about/"><span class="navItemTitle">About</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>Javascript设计模式</h1><div id="post-info"><span>文章发布时间: <div class="control"><time datetime="2023-11-14T06:37:01.000Z" id="date"> 2023-11-14</time></div></span><br><span>预计阅读时间: <div class="control">11 分钟</div></span></div></div><hr><div id="post-content"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><img src="/img/jsDesignPattern/jsDesignPattern.jpg" alt="Javascript设计模式" style='height: 400px;width: 100%;object-fit: cover;margin-top: 5px;'>
+
+<p>在本文中，我们将探索一些常见的JavaScript设计模式，从简单到复杂，将每个模式的实现原理和使用场景进行详细说明。无论您是一个初学者还是一个有经验的开发人员，都可以从本文中学习到有价值的知识和技巧。设计模式是一项需要不断学习和实践的技能，通过掌握和应用设计模式，您将能够优化代码结构，提高代码质量，并提升自己在软件开发领域的技术能力。</p>
+<p>每个设计模式都有其独特的用途和优势。本文将介绍以下几个设计模式：单例模式、工厂模式、观察者模式和策略模式。这些模式广泛应用于JavaScript开发中的各个领域，无论是前端开发、后端开发还是移动应用开发，都能发挥重要作用。</p>
+<h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1><p>单例模式是一种创建型设计模式，旨在确保一个类只有一个唯一的实例，并提供全局访问点以访问此实例。</p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ol>
+<li><p>在JavaScript开发中，单例模式常用于以下情况：</p>
+<ul>
+<li>需要限制一个类只能拥有一个实例，以避免重复创建相同对象的多个实例，节省内存和资源。</li>
+<li>需要一个全局访问点，使得所有代码都可以方便地访问该实例。</li>
+</ul>
+</li>
+<li><p>单例模式通常通过以下方式实现：</p>
+<ul>
+<li>私有化构造函数：将类的构造函数设为私有，防止外部直接实例化。</li>
+<li>提供一个静态方法来获取实例：该方法负责在首次调用时创建实例，并返回实例对象。以后再次调用该方法时，直接返回已创建的实例。</li>
+</ul>
+</li>
+</ol>
+<h2 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h2><p><strong>以下是一个简单的JavaScript单例模式的示例代码：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Singleton</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-comment">// 构造函数私有化，防止外部直接实例化</span><br>    <span class="hljs-comment">// ...</span><br>  &#125;<br><br>  <span class="hljs-keyword">static</span> <span class="hljs-title function_">getInstance</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">if</span> (!<span class="hljs-title class_">Singleton</span>.<span class="hljs-property">instance</span>) &#123;<br>      <span class="hljs-title class_">Singleton</span>.<span class="hljs-property">instance</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Singleton</span>();<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Singleton</span>.<span class="hljs-property">instance</span>;<br>  &#125;<br><br>  <span class="hljs-comment">// 单例类的其他方法和属性</span><br>  <span class="hljs-comment">// ...</span><br>&#125;<br><br><span class="hljs-comment">// 使用示例</span><br><span class="hljs-keyword">const</span> instance1 = <span class="hljs-title class_">Singleton</span>.<span class="hljs-title function_">getInstance</span>();<br><span class="hljs-keyword">const</span> instance2 = <span class="hljs-title class_">Singleton</span>.<span class="hljs-title function_">getInstance</span>();<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(instance1 === instance2);  <span class="hljs-comment">// 输出: true，说明只有一个实例</span><br><br></code></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
+<p>优点：</p>
+<blockquote>
+<ul>
+<li>确保一个类只有一个实例，节省了系统资源。</li>
+<li>提供了一个全局访问点，使得其他代码可以方便地访问该实例。</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>缺点：</p>
+<blockquote>
+<ul>
+<li>单例对象在全局范围内可见，可能会被错误地修改。</li>
+<li>单例模式在设计上可能会导致代码的耦合性增加，使代码难以扩展和测试。因此，在使用单例模式时，需要谨慎权衡其优缺点，并确保其适用于具体的场景和需求。</li>
+</ul>
+</blockquote>
+</blockquote>
+<h1 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h1><p>观察者模式（Observer Pattern）是一种行为型设计模式。它通过定义一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖它的对象都会得到通知并自动更新。</p>
+<h2 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h2><ol>
+<li><p>在观察者模式中，有两个核心角色：</p>
+<ul>
+<li>Subject（主题）：也称为被观察者或发布者，它维护着观察者列表，并提供了注册、删除和通知观察者的方法。主题在状态发生改变时，会遍历观察者列表，并调用每个观察者的相应方法进行更新。</li>
+<li>Observer（观察者）：观察者定义了接收并响应主题通知的方法。每个观察者都可以决定自己在收到通知时应该采取何种行动。</li>
+</ul>
+</li>
+<li><p>观察者模式适用于以下情况：</p>
+<ul>
+<li>当一个对象的改变需要其他对象也做出相应的改变时。</li>
+<li>当一个对象需要通知其他对象，但不需知道这些对象是谁。</li>
+<li>当对象之间的依赖关系动态变化，需要灵活地添加或移除观察者时。</li>
+</ul>
+</li>
+</ol>
+<p>观察者模式的优势在于实现了低耦合的对象之间的通信。主题只需知道观察者遵循的接口，而不需要知道具体的观察者实现。这样，在需求变更或新增观察者时，不需要修改主题的代码，只需添加新的观察者即可。</p>
+<h2 id="举例-1"><a href="#举例-1" class="headerlink" title="举例"></a>举例</h2><p><strong>以下是一个简单的JavaScript单例模式的示例代码：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 观察者对象</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Observer</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>  &#125;<br><br>  <span class="hljs-comment">// 响应主题通知的方法</span><br>  <span class="hljs-title function_">update</span>(<span class="hljs-params">message</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.name&#125;</span>收到通知：<span class="hljs-subst">$&#123;message&#125;</span>`</span>);<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 主题对象</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Subject</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">observers</span> = [];<br>  &#125;<br><br>  <span class="hljs-comment">// 注册观察者</span><br>  <span class="hljs-title function_">registerObserver</span>(<span class="hljs-params">observer</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">observers</span>.<span class="hljs-title function_">push</span>(observer);<br>  &#125;<br><br>  <span class="hljs-comment">// 删除观察者</span><br>  <span class="hljs-title function_">removeObserver</span>(<span class="hljs-params">observer</span>) &#123;<br>    <span class="hljs-keyword">const</span> index = <span class="hljs-variable language_">this</span>.<span class="hljs-property">observers</span>.<span class="hljs-title function_">indexOf</span>(observer);<br>    <span class="hljs-keyword">if</span> (index !== -<span class="hljs-number">1</span>) &#123;<br>      <span class="hljs-variable language_">this</span>.<span class="hljs-property">observers</span>.<span class="hljs-title function_">splice</span>(index, <span class="hljs-number">1</span>);<br>    &#125;<br>  &#125;<br><br>  <span class="hljs-comment">// 通知观察者</span><br>  <span class="hljs-title function_">notifyObservers</span>(<span class="hljs-params">message</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">observers</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">observer</span> =&gt;</span> &#123;<br>      observer.<span class="hljs-title function_">update</span>(message);<br>    &#125;);<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 创建观察者和主题对象</span><br><span class="hljs-keyword">const</span> observer1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Observer</span>(<span class="hljs-string">&quot;观察者1&quot;</span>);<br><span class="hljs-keyword">const</span> observer2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Observer</span>(<span class="hljs-string">&quot;观察者2&quot;</span>);<br><br><span class="hljs-keyword">const</span> subject = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Subject</span>();<br><br><span class="hljs-comment">// 注册观察者</span><br>subject.<span class="hljs-title function_">registerObserver</span>(observer1);<br>subject.<span class="hljs-title function_">registerObserver</span>(observer2);<br><br><span class="hljs-comment">// 发送通知给观察者</span><br>subject.<span class="hljs-title function_">notifyObservers</span>(<span class="hljs-string">&quot;Hello 观察者们!&quot;</span>);<br><br><span class="hljs-comment">// 输出:</span><br><span class="hljs-comment">// 观察者1收到通知：Hello 观察者们!</span><br><span class="hljs-comment">// 观察者2收到通知：Hello 观察者们!</span><br><br></code></pre></td></tr></table></figure>
+<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><blockquote>
+<p>优点：</p>
+<blockquote>
+<ul>
+<li>松耦合：观察者模式可以将主题对象和观察者对象解耦，它们只需要通过抽象接口进行通信，互不依赖。</li>
+<li>可扩展：可以简单地添加新的观察者对象，无需修改现有代码。</li>
+<li>可重用性：多个观察者对象可以被复用于不同的主题对象。</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>缺点：</p>
+<blockquote>
+<ul>
+<li>通知顺序不确定性：如果有多个观察者对象订阅了同一个主题对象，它们收到通知的顺序在某些情况下可能是不确定的。</li>
+<li>增加复杂性：观察者模式引入了一些额外的抽象层，可能增加系统的复杂性。</li>
+<li>观察者数目限制：观察者模式中，主题对象需要维护一个观察者列表，如果观察者数量较大，可能会对系统的性能产生一定影响。</li>
+</ul>
+</blockquote>
+</blockquote>
+<p>总的来说，观察者模式在实现松耦合、可扩展性和可重用性方面具有优势，但在通知顺序、复杂性和观察者数目方面存在一些限制和缺点。在实际应用中，需要根据具体情况综合考虑使用观察者模式的优缺点。</p>
+<h1 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h1><p>工厂模式（Factory Pattern）是一种创建型设计模式，它提供了一种创建对象的方式，而无需暴露对象的具体实现细节给客户端。</p>
+<h2 id="概念-2"><a href="#概念-2" class="headerlink" title="概念"></a>概念</h2><p>工厂模式通过定义一个公共的接口或抽象类来创建对象，而具体的对象创建逻辑则被封装在工厂类中。客户端只需要通过工厂类创建对象，而无需关心对象的具体实现过程。</p>
+<ol>
+<li><p>工厂模式主要包括以下几个角色：</p>
+<ul>
+<li>抽象工厂（Abstract Factory）：定义了创建产品对象的接口，客户端通过它调用具体工厂的方法创建对象。</li>
+<li>具体工厂（Concrete Factory）：实现了抽象工厂接口，并负责创建具体的产品对象。</li>
+<li>抽象产品（Abstract Product）：定义了产品的接口，客户端通过它和具体产品进行交互。</li>
+<li>具体产品（Concrete Product）：实现了抽象产品接口，具体的产品对象由具体工厂创建。</li>
+</ul>
+</li>
+<li><p>工厂模式的适用场景：</p>
+<ul>
+<li>当客户端无需知道对象的具体实现，只需使用对象时，可以使用工厂模式隐藏对象创建的细节。</li>
+<li>当系统中存在多个具有同样接口的具体产品时，可以使用工厂模式统一创建和管理这些对象。</li>
+<li>当对象之间的依赖关系动态变化，需要灵活地添加或移除观察者时。</li>
+</ul>
+</li>
+</ol>
+<p>需要注意的是，工厂模式虽然提供了一种灵活、可扩展的对象创建方式，但也会增加系统的复杂度和代码量。在使用工厂模式时，需要根据具体场景综合考虑使用与维护的复杂度。</p>
+<h2 id="举例-2"><a href="#举例-2" class="headerlink" title="举例"></a>举例</h2><p><strong>以下是一个简单的JavaScript单例模式的示例代码：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 定义抽象产品接口</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Product</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;<br>  &#125;<br>  <span class="hljs-title function_">introduce</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`我是<span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.name&#125;</span>`</span>);<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 定义具体产品类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ProductA</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Product</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name</span>) &#123;<br>    <span class="hljs-variable language_">super</span>(name);<br>  &#125;<br>  <span class="hljs-title function_">introduce</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`我是产品A - <span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.name&#125;</span>`</span>);<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ProductB</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Product</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name</span>) &#123;<br>    <span class="hljs-variable language_">super</span>(name);<br>  &#125;<br>  <span class="hljs-title function_">introduce</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`我是产品B - <span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.name&#125;</span>`</span>);<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 定义工厂类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Factory</span> &#123;<br>  <span class="hljs-title function_">createProduct</span>(<span class="hljs-params">productType, name</span>) &#123;<br>    <span class="hljs-keyword">switch</span> (productType) &#123;<br>      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;A&#x27;</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProductA</span>(name);<br>      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;B&#x27;</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProductB</span>(name);<br>      <span class="hljs-attr">default</span>:<br>        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;无法创建该类型的产品&#x27;</span>);<br>    &#125;<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 客户端代码</span><br><span class="hljs-keyword">const</span> factory = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Factory</span>();<br><span class="hljs-keyword">const</span> productA = factory.<span class="hljs-title function_">createProduct</span>(<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;AAA&#x27;</span>);<br><span class="hljs-keyword">const</span> productB = factory.<span class="hljs-title function_">createProduct</span>(<span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;BBB&#x27;</span>);<br><br>productA.<span class="hljs-title function_">introduce</span>(); <span class="hljs-comment">// 输出：我是产品A - AAA</span><br>productB.<span class="hljs-title function_">introduce</span>(); <span class="hljs-comment">// 输出：我是产品B - BBB</span><br><br></code></pre></td></tr></table></figure>
+<h2 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h2><blockquote>
+<p>优点：</p>
+<blockquote>
+<ul>
+<li>隐藏对象的具体创建过程，提供了一种解耦的方式，客户端无需关心对象的创建逻辑。</li>
+<li>可以通过工厂类统一管理对象的创建，方便集中控制和管理。</li>
+<li>符合开闭原则，易于扩展。通过增加新的具体工厂和具体产品，可以很方便地扩展系统功能。</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>缺点：</p>
+<blockquote>
+<ul>
+<li>维护成本高：由于工厂模式中涉及到多个工厂类和产品类的定义和创建，当需要新增或修改产品类时，可能需要修改多个工厂类和客户端代码。这会增加系统的维护成本，尤其在产品类较多、变化频繁的情况下更为明显。</li>
+<li>类型辨识困难：在一些复杂的工厂模式中，由于客户端无法直接使用具体产品类，而是通过工厂类创建产品对象，因此在使用产品时可能需要对具体产品的类型进行辨识和转换。这可能会引入一些类型判断的逻辑，增加了代码的复杂度。</li>
+<li>系统扩展困难：当需要新增一种产品类时，需要修改工厂类的代码，违背了开闭原则。对于已经存在的工厂类，不仅无法新增产品类，也无法删除产品类。对于已经存在的产品类，无法新增工厂类，也无法删除工厂类。这导致系统在扩展新功能时较为困难。</li>
+<li>运行效率低：在使用工厂模式时，由于需要通过工厂类来创建对象，会增加系统的运行负担。尤其在产品类较多时，可能会耗费较多的时间来查找正确的工厂类和产品类。</li>
+<li>增加了系统复杂度：引入了工厂类和产品类多层继承的结构，增加了系统的复杂度。对于小型系统或者简单的业务逻辑，使用工厂模式可能会显得过于复杂，不利于项目的开发和维护。</li>
+</ul>
+</blockquote>
+</blockquote>
+<h1 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h1><blockquote>
+<p>至此，文章就分享完毕了，我是程序员LinXiao，一位前端开发工程师。</p>
+<blockquote>
+<p>文中如有错误，欢迎在评论区指正，如果这篇文章帮到了你，欢迎点赞和关注<br>如果你对我有兴趣，欢迎添加我的个人微信<i class='iconfont icon-fenxiangweixin'></i><span style='color:#2bf'>Lxlucky2022<span><br>Github<i class='icon-github iconfont'></i>：<a target="_blank" rel="noopener" href="https://github.com/KevinLin8">https://github.com/KevinLin8</a></p>
+</blockquote>
+</blockquote><div id="paginator"></div></div><div id="post-footer"><div id="pages" style="justify-content: flex-end"><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2023/11/09/chatwhiz/">人工智能AI大模型 上一篇 →</a></div></div></div><div id="comments"><div id="valine"></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="/img/avatar.jpg" alt="Logo"></a><h1 id="Dr"><a href="/">LinXiao</a></h1><div id="description"><p>我能new出N个对象，却唯独在等你！</p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/KevinLin8"><i class="fab fa-github" alt="GitHub"></i></a><a class="social" href="mailto:xiao13022087579@163.com"><i class="fa fa-envelope" alt="E-Mail"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">单例模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">2.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BE%E4%BE%8B"><span class="toc-number">2.2.</span> <span class="toc-text">举例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.3.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">观察者模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-1"><span class="toc-number">3.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BE%E4%BE%8B-1"><span class="toc-number">3.2.</span> <span class="toc-text">举例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-1"><span class="toc-number">3.3.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text">工厂模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-2"><span class="toc-number">4.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BE%E4%BE%8B-2"><span class="toc-number">4.2.</span> <span class="toc-text">举例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-2"><span class="toc-number">4.3.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="toc-number">5.</span> <span class="toc-text">写在最后</span></a></li></ol></div></div><footer><nobr><span class="icp-title">ICP</span><a class="icp-content" target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">懒得备</a></nobr><br><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> 使用主题 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> 主题作者 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/search.js"></script><script src="/js/custom.js"></script><script src="/js/arknights.js"></script><script src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/lib/encrypt/hbe.js"></script><script src="/js/pjax.js"></script><script class="pjax-js">reset= () => {new Valine({
+ el: '#valine'
+ , appId: 'DyRRFHYUNvMKO79w2AnV84dl-gzGzoHsz'
+ , appKey: 'WxQJZbP7LvCUKsY9vqSxbE5l' , placeholder: '此条评论委托企鹅物流发送'
+ , path: window.location.pathname
+});document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js','data-pjax'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script></body></html>
